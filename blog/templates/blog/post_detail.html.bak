@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <h1>{{ post.title }}</h1>
+
+  {% if post.photo %}
+	<img src="{{ post.photo.url }}" />
+  {% endif %}
+
+  {{ post.content }}
+  <h3>Commnet</h3>
+  <a href="{% url "blog.views.comment_new" post.pk %}">댓글 쓰기</a>
+  <ul>
+  {% for comment in post.comment_set.all %}
+  <li>
+	{{ comment.message }}
+	<small>by {{ comment.author }}, {{ commnet.created_at }} </small>
+	<a href="{% url "blog.views.comment_edit" post.pk comment.pk %}">수정</a>
+  </li>
+  {% endfor %}
+  </ul>
+ </body>
+</html>
